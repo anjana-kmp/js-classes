@@ -4,12 +4,13 @@ class Plant{
     growthFactor = 0;
     image=null;
     flowerImage=null
+    imgPath=''
     rect={
       x:0,y:0,
       w:0,h:0
     };
     floweringAge=0
-    constructor(name,age,growthFactor,imgPath,rect,floweringAge){
+    constructor(name,age,growthFactor,imgPath,rect,floweringAge,createBtnclick){
       this.rect.x=rect[0]
       this.rect.y=rect[1]
       this.rect.w=rect[2]
@@ -18,11 +19,12 @@ class Plant{
       this.name=name
       this.age=age
       this.growthFactor=growthFactor
+      this.imgPath=imgPath
+      this.createBtnclick=createBtnclick
 
       this.image=new Image();
       this.image.src=imgPath;
       this.flowerImage=new Image();
-      
       this.flowerImage.src=imgPath.replace('.png','-flowers.png')
       
       this.image.onload=()=>{
@@ -35,13 +37,16 @@ class Plant{
 
     }
     init(){
-      let btn=document.createElement('button')
-      btn.textContent=this.name.toUpperCase()
-      document.querySelector('.buttons').appendChild(btn)
-      btn.addEventListener('click',()=>{
-        this.grow()
-
-      })
+      if(this.createBtnclick){
+        let btn=document.createElement('button')
+        btn.textContent=this.name.toUpperCase()
+        document.querySelector('.buttons').appendChild(btn)
+        btn.addEventListener('click',()=>{
+          this.grow()
+  
+        })
+      }
+     
     }
      grow(){
        this.age += this.growthFactor 
