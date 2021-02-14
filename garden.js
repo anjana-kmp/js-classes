@@ -11,7 +11,7 @@ class Garden{
         console.log('Iam before switch')
         switch(plant){
             case 'rose':
-                this.plant=new Plant('rose',0,1.5,'./images/cartoon-rose.png',[0,150,40,15])
+                this.plant=new Plant('rose',0,1,'./images/cartoon-rose.png',[0,150,40,15])
                 console.log('Iam in switch')
                 break
             case 'orchid':
@@ -29,15 +29,26 @@ class Garden{
 
     }
     prepareGarden(){
+        this.plants=new Array(this.columns)
         for(let i=0;i<this.columns;i++){
             // first variable is initiated with a value 0
             // the middle portion tells how much to loop; loop it till i<column count.
             // the third portion increment the value of i;so after the last line i is assigned a value (i+1)
             let createBtnclick=false
-          console.log('i is :',i)
-            this.plants[i]=new Plant(this.plant.name,this.plant.age,this.plant.growthFactor,this.plant.imgPath,[i*60,this.plant.rect.y,this.plant.rect.w,this.plant.rect.h],this.plant.floweringAge),createBtnclick
+                console.log('i is :',i)
+                for(let j=0;j<this.rows;j++){
+
+                    this.plants[j,i]=new Plant(this.plant.name,this.plant.age,this.plant.growthFactor,this.plant.imgPath,[i*60,j*40,this.plant.rect.w,this.plant.rect.h],this.plant.floweringAge),createBtnclick
+                }
+
+           
+        }  
         
-        }
+            
+        
+        
+
+    
         let btn=document.createElement('button')
       btn.textContent=this.name.toUpperCase()
       document.querySelector('.buttons').appendChild(btn)
@@ -48,8 +59,12 @@ class Garden{
     }
     grow(){
         this.plants.forEach((itm)=>{
-            itm.grow()
+            itm.forEach((rw)=>{
+                rw.grow()
+
+            })
         })
     }
+    
 
 }
